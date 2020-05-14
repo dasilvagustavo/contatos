@@ -49,13 +49,11 @@
             function onChangeContatos(){
                 var input = document.getElementById('contato'+(cnt-1)).value;
                 var inputEnviarBack = document.getElementById('contato');
-                this.arrayContatos[cnt-1] = input;
+                this.arrayContatos[cnt-1] = input+";";
                 inputEnviarBack.value = this.arrayContatos;
             }
             function component(){
                 var div = document.getElementById('emails');
-                // console.log("array: "+this.arrayContatos.length);
-                // console.log("cnt: "+(cnt-1));
                 if((cnt-1) <= this.arrayContatos.length){
                     var span = document.getElementById('span'+(cnt-1));
                     span.innerHTML = '<i class="fas fa-times-circle" data-cnt="'+(cnt-1)+'" id="contatoDiv'+(cnt-1)+'" onclick="excluiCont(this.id, this)"></i>';
@@ -70,7 +68,6 @@
                     cnt++;
                     forArrayContatos();
                 }
-
             }
             function cancelar(){
                 var nome = document.getElementById('nome');
@@ -83,35 +80,27 @@
                 email.value = "";
                 divEmail.innerHTML = "";
                 cnt=0;
-                component();
+                var html = '<div id="contatoDiv'+(cnt)+'"><div class="input-group mb-3" id="contatoDiv'+(cnt)+'"><input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato'+cnt+'"> <div class="input-group-append"><span class="input-group-text" id="span'+cnt+'"><i class="fas fa-level-down-alt" onclick="component()"></i></span></div></div></div>';
+                divEmail.innerHTML += html;
+                cnt++;
+                forArrayContatos();
             }
             function excluiCont(id, count){
-                var div = document.getElementById(id);
-                console.log(div);
-                console.log(id);
-                console.log(count.getAttribute("data-cnt"));
-                div.innerHTML = "";
-                div.innerText = "";
-
+                var div = document.getElementById(id).style.display = 'none';
                 if(this.arrayContatos.length > 1){
                     if(this.arrayContatos.length != count.getAttribute("data-cnt")) {
-                        // this.arrayContatos.splice((count.getAttribute("data-cnt")), 1)
                         this.arrayContatos[count.getAttribute("data-cnt")] = " ";
                         console.log(this.arrayContatos);
                     }else if(this.arrayContatos.length == count.getAttribute("data-cnt")){
                         this.arrayContatos[count.getAttribute("data-cnt")] = " ";
-                        // this.arrayContatos.splice((count.getAttribute("data-cnt")-this.arrayContatos.length), 1)
                         console.log(this.arrayContatos);
                     }
                 }else{
-                    // this.arrayContatos.splice((count.getAttribute("data-cnt")-1), 1)
                     this.arrayContatos[count.getAttribute("data-cnt")] = " ";
                     console.log(this.arrayContatos);
                 }
-
                 var inputEnviarBack = document.getElementById('contato');
                 inputEnviarBack.value = this.arrayContatos;
-
                 this.cnt-1;
             }
         </script>

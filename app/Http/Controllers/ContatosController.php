@@ -15,7 +15,7 @@ class ContatosController extends Controller
             $nome = $request->input('nome')." ".$request->input('sobrenome');
 //        Substitui a virgular que vem com o array por ponto e virgula para separar os contatos no banco
             $contatosRetirEsp = str_replace(' ,', '', $request->input('contato'));
-            $contatos = str_replace(',', ';', $contatosRetirEsp);
+            $contatos = str_replace(',', '', $contatosRetirEsp);
             $contato->nome = $nome;
             $contato->contatos = $contatos;
             $contato->save();
