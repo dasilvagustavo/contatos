@@ -54,10 +54,23 @@
             }
             function component(){
                 var div = document.getElementById('emails');
-                var html = '<div class="input-group mb-3"><input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato'+cnt+'"> <div class="input-group-append"><span class="input-group-text" id="span"+cnt><i class="fas fa-level-down-alt" onclick="component()"></i></span></div></div>';
-                div.innerHTML += html;
-                cnt++;
-                forArrayContatos();
+                // console.log("array: "+this.arrayContatos.length);
+                // console.log("cnt: "+(cnt-1));
+                if((cnt-1) <= this.arrayContatos.length){
+                    var span = document.getElementById('span'+(cnt-1));
+                    span.innerHTML = '<i class="fas fa-times-circle" data-cnt="'+(cnt-1)+'" id="contatoDiv'+(cnt-1)+'" onclick="excluiCont(this.id, this)"></i>';
+
+                    var html = '<div id="contatoDiv'+(cnt)+'"><div class="input-group mb-3"><input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato'+cnt+'"> <div class="input-group-append"><span class="input-group-text" id="span'+cnt+'"><i class="fas fa-level-down-alt" onclick="component()"></i></span></div></div></div>';
+                    div.innerHTML += html;
+                    cnt++;
+                    forArrayContatos();
+                }else{
+                    var html = '<div id="contatoDiv'+(cnt)+'"><div class="input-group mb-3" id="contatoDiv'+(cnt)+'"><input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato'+cnt+'"> <div class="input-group-append"><span class="input-group-text" id="span'+cnt+'"><i class="fas fa-level-down-alt" onclick="component()"></i></span></div></div></div>';
+                    div.innerHTML += html;
+                    cnt++;
+                    forArrayContatos();
+                }
+
             }
             function cancelar(){
                 var nome = document.getElementById('nome');
@@ -72,9 +85,34 @@
                 cnt=0;
                 component();
             }
-            function excluiComp(id){
+            function excluiCont(id, count){
                 var div = document.getElementById(id);
-                div.innerHTML= "";
+                console.log(div);
+                console.log(id);
+                console.log(count.getAttribute("data-cnt"));
+                div.innerHTML = "";
+                div.innerText = "";
+
+                if(this.arrayContatos.length > 1){
+                    if(this.arrayContatos.length != count.getAttribute("data-cnt")) {
+                        // this.arrayContatos.splice((count.getAttribute("data-cnt")), 1)
+                        this.arrayContatos[count.getAttribute("data-cnt")] = " ";
+                        console.log(this.arrayContatos);
+                    }else if(this.arrayContatos.length == count.getAttribute("data-cnt")){
+                        this.arrayContatos[count.getAttribute("data-cnt")] = " ";
+                        // this.arrayContatos.splice((count.getAttribute("data-cnt")-this.arrayContatos.length), 1)
+                        console.log(this.arrayContatos);
+                    }
+                }else{
+                    // this.arrayContatos.splice((count.getAttribute("data-cnt")-1), 1)
+                    this.arrayContatos[count.getAttribute("data-cnt")] = " ";
+                    console.log(this.arrayContatos);
+                }
+
+                var inputEnviarBack = document.getElementById('contato');
+                inputEnviarBack.value = this.arrayContatos;
+
+                this.cnt-1;
             }
         </script>
     </head>
@@ -100,10 +138,12 @@
                                 </div>
 
                                 <div id="emails">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" required placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato0" name="contato0">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"  id="span0"><i class="fas fa-level-down-alt" onclick="component()"></i></span>
+                                    <div id="contatoDiv0">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control inputForm inputEmail" onkeyup="onChangeContatos()" required placeholder="Adicionar contato (Telefone, email, twitter, facebook)" id="contato0" name="contato0">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"  id="span0"><i class="fas fa-level-down-alt" onclick="component()"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
