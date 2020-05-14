@@ -90,14 +90,11 @@
                 if(this.arrayContatos.length > 1){
                     if(this.arrayContatos.length != count.getAttribute("data-cnt")) {
                         this.arrayContatos[count.getAttribute("data-cnt")] = " ";
-                        console.log(this.arrayContatos);
                     }else if(this.arrayContatos.length == count.getAttribute("data-cnt")){
                         this.arrayContatos[count.getAttribute("data-cnt")] = " ";
-                        console.log(this.arrayContatos);
                     }
                 }else{
                     this.arrayContatos[count.getAttribute("data-cnt")] = " ";
-                    console.log(this.arrayContatos);
                 }
                 var inputEnviarBack = document.getElementById('contato');
                 inputEnviarBack.value = this.arrayContatos;
